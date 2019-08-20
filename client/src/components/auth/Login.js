@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
+//import { testFunction } from "../../actions/authActions";
 import classnames from "classnames"; // to add multiple classes to a component
+import TextFieldGroup from "../common/TextFieldGroup";
 
 class Login extends Component {
   constructor() {
@@ -15,14 +17,23 @@ class Login extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+
+    console.log("Login page!");
+  }
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log("Inside -componentWillReceiveProps- ");
     if (nextProps.auth.isAuthenticated) {
+      console.log("Successfully logged in with user: " + this.state.email);
       this.props.history.push("/dashboard");
     }
-
-    if (nextProps.error) {
+    if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
   }
@@ -32,6 +43,7 @@ class Login extends Component {
   }
 
   onSubmit(e) {
+    console.log("Inside -onSubmit- ");
     e.preventDefault();
 
     const userData = {
@@ -43,6 +55,7 @@ class Login extends Component {
   }
 
   render() {
+    console.log("Inside -render- ");
     const { errors } = this.state;
 
     return (
@@ -54,23 +67,26 @@ class Login extends Component {
               <p className="lead text-center">
                 Sign in to your DevConnector account
               </p>
-              <form action="dashboard.html">
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.email
-                    })}
-                    placeholder="Email Address"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                  />
-                  {errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
-                  )}
-                </div>
-                <div className="form-group">
+              <form onSubmit={this.onSubmit}>
+                <TextFieldGroup
+                  placeholder="Email Address"
+                  name="email"
+                  type="email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                  error={errors.email}
+                />
+
+                <TextFieldGroup
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                  value={this.state.password}
+                  onChange={this.onChange}
+                  error={errors.password}
+                />
+
+                {/* <div className="form-group">
                   <input
                     type="password"
                     className={classnames("form-control form-control-lg", {
@@ -84,7 +100,7 @@ class Login extends Component {
                   {errors.password && (
                     <div className="invalid-feedback">{errors.password}</div>
                   )}
-                </div>
+                </div> */}
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
