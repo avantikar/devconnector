@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 //import axios from "axios";
-import classnames from "classnames"; // to add multiple classes to a component
+//import classnames from "classnames"; // to add multiple classes to a component
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import PropTypes from "prop-types";
