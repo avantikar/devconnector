@@ -1,53 +1,53 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { getPosts } from '../../actions/postActions';
-import { getPost } from '../../actions/postActions';
-import PostForm from './PostForm';
-import PostFeed from './PostFeed';
-import Spinner from '../common/Spinner';
-
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getPost } from "../../actions/postActions";
+import PostForm from "./PostForm";
+import PostFeed from "./PostFeed";
+import Spinner from "../common/Spinner";
+import { getPosts } from "../../actions/postActions";
 
 class Posts extends Component {
+  componentDidMount() {
+    this.props.getPosts({ ...this.props });
+  }
 
-    componentDidMount() {
+  render() {
+    const posts = this.props.postReducer.posts;
+    const loading = this.props.loading;
+    let postContent;
 
-        this.props.getPosts();
+    if (posts === null || loading) {
+      postContent = <Spinner />;
+    } else {
+      postContent = <PostFeed posts={posts} />;
     }
 
-    render() {
-        this.props.post = this.props.getPost(this.props.match.params.id);
-        const { posts, loading } = this.props.post;
-        let postContent;
-
-        if (posts === null || loading) {
-            postContent = <Spinner />;
-        } else {
-            postContent = <PostFeed posts={posts} />;
-        }
-
-        return (
-            <div className="feed">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <PostForm />
-                            {postContent}
-                        </div>
-                    </div>
-                </div>
+    return (
+      <div className="feed">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <PostForm />
+              {postContent}
             </div>
-        );
-    }
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 Posts.propTypes = {
-    getPosts: PropTypes.func.isRequired,
-    post: PropTypes.object.isRequired
+  getPosts: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-    post: state.post
+  postReducer: state.postReducer
 });
 
-export default connect(mapStateToProps, { getPosts })(Posts);
+const mapDispatchToProps = {
+  getPosts
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);

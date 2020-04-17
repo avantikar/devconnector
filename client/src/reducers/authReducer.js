@@ -4,10 +4,12 @@ import isEmpty from "../validation/is-empty";
 
 const initialState = {
   isAuthenticated: false,
+  isVerified: false,
   user: {}
 };
 
 export default function(state = initialState, action) {
+  //debugger;
   switch (action.type) {
     //case GET_ERRORS:
     //return action.payload;
