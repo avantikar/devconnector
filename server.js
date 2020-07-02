@@ -21,7 +21,7 @@ const db = require("./config/keys").mongoURI;
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("My MongoDB connected"))
-  .catch(err => console.log("MongoDb not connected to ", db, err));
+  .catch((err) => console.log("MongoDb not connected to ", db, err));
 
 // Passport middleware
 app.use(passport.initialize());
@@ -44,5 +44,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const port = process.env.PORT || 5000;
+//const port = 8000 || 5000;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
