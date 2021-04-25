@@ -17,13 +17,15 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { clearCurrentProfile } from "./actions/profileActions";
-import AddExperience from './components/add-credentials/AddExperience';
-import AddEducation from './components/add-credentials/AddEducation';
-import Profiles from './components/profiles/Profiles';
-import Profile from './components/profile/Profile';
-import NotFound from './components/not-found/NotFound';
-import Posts from './components/posts/Posts';
-import Post from './components/post/Post';
+import AddExperience from "./components/add-credentials/AddExperience";
+import AddEducation from "./components/add-credentials/AddEducation";
+import Profiles from "./components/profiles/Profiles";
+import Profile from "./components/profile/Profile";
+import NotFound from "./components/not-found/NotFound";
+import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";
+import QADashboard from "./components/qa-dashboard/QADashboard";
+import RegressionBulletins from "./components/qa-dashboard/RegressionBulletins";
 
 // Check for token
 
@@ -65,6 +67,20 @@ function App() {
             <Switch>
               <PrivateRoute
                 exact
+                path="/qa-dashboard"
+                component={QADashboard}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/regression-bulletins"
+                component={RegressionBulletins}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
                 path="/create-profile"
                 component={CreateProfile}
               />
@@ -91,18 +107,10 @@ function App() {
               />
             </Switch>
             <Switch>
-              <PrivateRoute
-                exact
-                path="/post/:id"
-                component={Post}
-              />
+              <PrivateRoute exact path="/post/:id" component={Post} />
             </Switch>
             <Switch>
-              <PrivateRoute
-                exact
-                path="/feed"
-                component={Posts}
-              />
+              <PrivateRoute exact path="/feed" component={Posts} />
             </Switch>
             <Route exact path="/not-found" component={NotFound} />
           </div>

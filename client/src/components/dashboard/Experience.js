@@ -12,7 +12,7 @@ class Experience extends Component {
   }
 
   render() {
-    const newExperience = this.props.experience;
+    const experienceTable = this.props.experience;
     const experience = this.props.experience.map((exp) => (
       <tr key={exp._id}>
         <td>{exp.company}</td>
@@ -102,7 +102,7 @@ class Experience extends Component {
           <DataTable
             title="Experience Credentials"
             columns={columns}
-            data={newExperience}
+            data={experienceTable}
             theme="dark"
             actions={this.actions}
             contextActions={this.contextActions}

@@ -12,7 +12,7 @@ class Education extends Component {
   }
 
   render() {
-    const newEducation = this.props.education;
+    const educationTable = this.props.education;
     const education = this.props.education.map((edu) => (
       <tr key={edu._id}>
         <td>{edu.school}</td>
@@ -113,7 +113,7 @@ class Education extends Component {
         <DataTable
           title="Education Credentials"
           columns={columns}
-          data={newEducation}
+          data={educationTable}
           theme="dark"
           actions={this.actions}
           contextActions={this.contextActions}
